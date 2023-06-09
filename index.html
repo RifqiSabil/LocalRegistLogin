@@ -1,0 +1,217 @@
+<html>
+    <head>
+        <title>MY WEBSITE 😊</title>
+    </head>
+    <style>
+        #root {
+            background-color: rgb(3, 6, 30);
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            height: 200vh;
+            width: 100vw;
+        }
+        #LOGOUT{
+            float: right;
+        }
+        #keqing{
+            width: 80vw;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #razor{
+            width: 80vw;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <body>
+        <div id="root">
+            <!-- Log In Menu -->
+            <h1 id="title">MY WEBSITE 😊</h1>
+            <input type="text" placeholder="username" id="usernameInput"/>
+            <input type="password" placeholder="password" id="passwordInput"/>
+            <button onclick="onLogin()" id="LOGIN">LOGIN</button>
+            <button onclick="onLogout()" id="LOGOUT">LOGOUT</button>
+
+            <!-- Registration Menu -->
+            <h5 id="REG">Don't have account yet? Registration below</h5>
+            <input type="text" placeholder="username" id="usernameRegInput"/>
+            <input type="password" placeholder="password" id="passwordRegInput"/>
+            <button onclick="onAdminRegist()" id="AdmRegist">REGIST AS ADMIN</button>
+            <button onclick="onGuestRegist()" id="GstRegist">REGIST AS GUEST</button>
+            <br/>
+            
+            <h3 id="welcome"></h3>
+            <h4 id="admin">(logged in as admin)</h4>
+            <h4 id="guest">(logged in as guest)</h4>
+            <img src="assets/images/keqing.jpg" alt="" id="keqing" />
+            <img src="assets/images/razor.jpg" alt="" id="razor" />
+        </div>
+        
+        <script type="application/javascript">
+            // below the example of CSS editing in javascript
+            // let root = document.getElementById('root');
+            // const nm = "リフキーサビル";
+            // const hb = "サッカー"
+            // console.log('root: ', root);
+            // root.textContent = "はじめまして、私の名前は" + nm + "です。私の趣味は" + hb + "です。よろしくお願いします。";
+            // root.style.backgroundColor = "tomato";
+            // root.style.color = "white";
+            // root.style.fontSize = "2em";
+            // root.style.textAlign = "center";
+            // root.style.height = "100vh";
+            let usernameInput = document.getElementById('usernameInput');
+            let passwordInput = document.getElementById('passwordInput');
+            let admin = document.getElementById('admin');
+            let guest = document.getElementById('guest');
+            let login = document.getElementById('LOGIN')
+            let logout = document.getElementById('LOGOUT')
+            let welcome = document.getElementById('welcome');
+            let keqing = document.getElementById('keqing');
+            let razor = document.getElementById('razor');
+            let title = document.getElementById('title');
+            let registration = document.getElementById('REG');
+            let AdmRegist = document.getElementById('AdmRegist');
+            let GstRegist = document.getElementById('GstRegist');
+            var usernameRegInput = document.getElementById('usernameRegInput');
+            var passwordRegInput = document.getElementById('passwordRegInput');
+            
+            var user;
+            var pass;
+            var as;
+
+            // user = JSON.parse(localStorage.getItem("user"));
+            // pass = JSON.parse(localStorage.getItem("pass"));
+            // as = JSON.parse(localStorage.getItem("as"));
+            
+
+            // user[0] = "rifqi";
+            // user[1] = "irbah";
+
+            // console.log(user[0]);
+            // console.log(user[1]);
+            console.log(user);
+            // console.log(user.length);
+
+            title.style.display = "block";
+            admin.style.display = "none";
+            guest.style.display = "none";
+            logout.style.display = "none";
+            keqing.style.display = "none";
+            razor.style.display = "none";
+
+            
+
+            function onLogin() {
+                console.log('login button has clicked');
+                console.log('username :', usernameInput.value);
+                console.log('password: ', passwordInput.value);
+                localStorage.setItem("username", usernameInput.value);
+                logout.style.display = "block";
+                title.style.display = "none";
+                registration.style.display = "none";
+                AdmRegist.style.display = "none";
+                GstRegist.style.display = "none";
+                usernameRegInput.style.display = "none";
+                passwordRegInput.style.display = "none";
+
+                if(usernameInput.value == localStorage.getItem('user') && passwordInput.value == localStorage.getItem('pass') && localStorage.getItem('as') == "admin"){
+                    alert('Login as admin, Welcome');
+                    localStorage.setItem("role", "member");
+                    admin.style.display = "block";
+                    guest.style.display = "none";
+                    welcome.textContent = "Welcome, " + usernameInput.value + "!";
+                    console.log('Login as member, Welcome',  usernameInput.value);
+                    usernameInput.style.display = "none";
+                    passwordInput.style.display = "none";
+                    login.style.display = "none";
+                    console.log('username', localStorage.getItem('username'));
+                    console.log('role', localStorage.getItem('role'));
+                    keqing.style.display = "block";
+                } else if(usernameInput.value == localStorage.getItem('user') && passwordInput.value == localStorage.getItem('pass') && localStorage.getItem('as') == "guest"){
+                    alert('Login as guest, Welcome ');
+                    localStorage.setItem("role", "non-member");
+                    guest.style.display = "block";
+                    admin.style.display = "none";
+                    welcome.textContent = "Welcome, " + usernameInput.value + "!";
+                    console.log('Login as guest, Welcome ', usernameInput.value);
+                    usernameInput.style.display = "none";
+                    passwordInput.style.display = "none";
+                    login.style.display = "none";
+                    console.log('role', localStorage.getItem('role'));
+                    razor.style.display = "block";
+                } else{
+                    alert('login failed');
+                }
+            }
+            
+            
+
+            if(localStorage.getItem('username')){
+                usernameInput.style.display = "none";
+                passwordInput.style.display = "none";
+                login.style.display = "none";
+                logout.style.display = "block";
+                title.style.display = "none";
+                registration.style.display = "none";
+                AdmRegist.style.display = "none";
+                GstRegist.style.display = "none";
+                usernameRegInput.style.display = "none";
+                passwordRegInput.style.display = "none";
+
+                if(localStorage.getItem('role') == "member"){
+                    admin.style.display = "block";
+                    guest.style.display = "none";
+                    welcome.textContent = "Welcome, " + localStorage.getItem('username') + "!";
+                    keqing.style.display = "block";
+                } else{
+                    guest.style.display = "block";
+                    admin.style.display = "none";
+                    welcome.textContent = "Welcome, " + localStorage.getItem('username') + "!";
+                    razor.style.display = "block";                   
+                }
+                
+            }
+
+            function onLogout(){
+                localStorage.removeItem('username');
+                localStorage.removeItem('role');
+                location.reload();
+            }
+
+            function onAdminRegist(){
+
+                
+                user=usernameRegInput.value;
+                pass=passwordRegInput.value;
+                as="admin";
+                // JSON.parse(user)=user;
+                // JSON.parse(pass)=pass;
+                // JSON.parse(as)=as;
+                localStorage.setItem("user", user);
+                localStorage.setItem("pass", pass);
+                localStorage.setItem("as",as);
+                console.log(user);
+
+                alert('You are registered');
+            }
+            
+            function onGuestRegist(){
+                user=usernameRegInput.value;
+                pass=passwordRegInput.value;
+                as="guest";
+                // JSON.parse(user)=user;
+                // JSON.parse(pass)=pass;
+                // JSON.parse(as)=as;
+                localStorage.setItem("user", user);
+                localStorage.setItem("pass", pass);
+                localStorage.setItem("as",as);
+                console.log(user);
+
+                alert('You are registered');
+            }
+
+        </script>
+    </body>
+</html>
